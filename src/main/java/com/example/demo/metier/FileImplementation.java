@@ -1,6 +1,7 @@
 package com.example.demo.metier;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,47 +12,37 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.dao.FileRepository;
 import com.example.demo.dao.StorageService;
 import com.example.demo.entities.File;
+import com.example.demo.entities.ServerCategorie;
+import com.example.demo.interfece.FileInt;
 
 @Service
-public class FileImplementation implements StorageService {
+public class FileImplementation implements FileInt {
 
 	@Autowired
 	private FileRepository fileRepository; 
 	@Override
-	public void init() {
-		// TODO Auto-generated method stub
-		
+	public List<File> findAllFiles() {
+		return fileRepository.findAll();
 	}
 
 	@Override
-	public void store(MultipartFile file,File file2) {
-		
-		fileRepository.save(file2);
-		
+	public File saveFile(File file) {
+		ServerCategorie  serverCategorie= new  ServerCategorie(null, null);
+		File file2= new File(null, null, null, null, serverCategorie);
+		return fileRepository.saveAndFlush(file);
 	}
 
 	@Override
-	public Stream<Path> loadAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public File getOneFileUploaded(Long id) {
+		return fileRepository.findById(id).get();
 	}
 
 	@Override
-	public Path load(String filename) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean deleteFileUploaded(Long id) {
+		fileRepository.deleteById(id);
+		return true;
 	}
 
-	@Override
-	public Resource loadAsResource(String filename) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public void deleteAll() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

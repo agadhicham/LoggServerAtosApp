@@ -30,9 +30,8 @@ public class ServerCategorie {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	@Length()
+	//@Length()
 	private String nomCategorie;
-	@OneToMany(mappedBy="serverCategorie",fetch=FetchType.EAGER)
-	List<File> files;
+
 
 }
