@@ -17,11 +17,10 @@ import com.example.demo.metier.FileImplementation;
 import com.example.demo.property.FileStorageProperties;
 import com.example.demo.service.CategorieService;
 
-
 @SpringBootApplication
-@EnableConfigurationProperties({
-    FileStorageProperties.class
-})
+
+//pour activer la laison entre la class pojo et le fichier application.properties
+@EnableConfigurationProperties({ FileStorageProperties.class })
 public class AppLog1Application implements CommandLineRunner {
 
 	@Autowired
@@ -29,7 +28,7 @@ public class AppLog1Application implements CommandLineRunner {
 
 	@Autowired
 	private FileImplementation fileImplementation;
-	
+
 	public static void main(String[] args) {
 		SpringApplication.run(AppLog1Application.class, args);
 	}
@@ -40,25 +39,23 @@ public class AppLog1Application implements CommandLineRunner {
 		categorieService.saveServerCategorie(new ServerCategorie(null, "Jboss"));
 		categorieService.saveServerCategorie(new ServerCategorie(null, "Apache"));
 		categorieService.saveServerCategorie(new ServerCategorie(null, "Tomcate"));
-	
-		 //ServerCategorie categorie =new ServerCategorie(null, "serverjboss2");
-		 //System.out.println(categorie.getNomCategorie());
-		System.out.println("**************************************************************");
-          ServerCategorie serverCategorie =new ServerCategorie(null, "ServerCateg2");
-          categorieService.saveServerCategorie(serverCategorie);
-		
 
-			System.out.println("====================");
-			System.out.println("La liste des categories");
-			System.out.println(categorieService.getAllCat().toString());
-			System.out.println("====================");
-			Date date= new Date();
-			SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-			File file = new File(null, "fileAA",null, null, serverCategorie);
-			 fileImplementation.saveFile(file);
-			 System.out.println(fileImplementation.findAllFiles().toString());
-		
-		
+		// ServerCategorie categorie =new ServerCategorie(null, "serverjboss2");
+		// System.out.println(categorie.getNomCategorie());
+		System.out.println("**************************************************************");
+		ServerCategorie serverCategorie = new ServerCategorie(null, "ServerCateg2");
+		categorieService.saveServerCategorie(serverCategorie);
+
+		System.out.println("====================");
+		System.out.println("La liste des categories");
+		System.out.println(categorieService.getAllCat().toString());
+		System.out.println("====================");
+		Date date = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		File file = new File(null, "fileAA", null, null, serverCategorie);
+		fileImplementation.saveFile(file);
+		System.out.println(fileImplementation.findAllFiles().toString());
+
 	}
-	
+
 }

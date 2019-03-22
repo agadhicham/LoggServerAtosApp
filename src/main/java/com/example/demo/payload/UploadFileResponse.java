@@ -11,6 +11,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+
+/*
+ * UploadFileResponse son role est d'envoyer les propriétes de fichier telecharger tant que une réponse
+ * */
+
 public class UploadFileResponse {
 	private String fileName;
     private String fileDownloadUri;
