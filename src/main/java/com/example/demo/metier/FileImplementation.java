@@ -26,7 +26,7 @@ public class FileImplementation implements FileInt {
 
 	@Override
 	public File saveFile(File file) {
-		ServerCategorie  serverCategorie= new  ServerCategorie(null, null);
+		ServerCategorie  serverCategorie= new  ServerCategorie(null, null, null);
 		File file2= new File(null, null, null, null, serverCategorie);
 		return fileRepository.saveAndFlush(file);
 	}

@@ -7,4 +7,5 @@ import com.example.demo.entities.File;
 
 public interface FileRepository extends JpaRepository<File, Long>{
 
+	
 }

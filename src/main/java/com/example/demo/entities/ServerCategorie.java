@@ -1,7 +1,10 @@
 package com.example.demo.entities;
 
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.validation.Valid;
 
 import org.hibernate.validator.constraints.Length;
+
+import com.example.demo.model.DBFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,6 +37,8 @@ public class ServerCategorie {
 	private Long id;
 	//@Length()
 	private String nomCategorie;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy ="", cascade =CascadeType.ALL)
+	private List<DBFile> dbFiles=new ArrayList<DBFile>();
 
 
 }

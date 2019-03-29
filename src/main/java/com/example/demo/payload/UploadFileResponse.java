@@ -14,6 +14,7 @@ import lombok.Setter;
 
 /*
  * UploadFileResponse son role est d'envoyer les propriétes de fichier telecharger tant que une réponse
+ * 
  * */
 
 public class UploadFileResponse {
