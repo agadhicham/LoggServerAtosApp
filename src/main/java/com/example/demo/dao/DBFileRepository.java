@@ -18,6 +18,7 @@ public interface DBFileRepository extends JpaRepository<DBFile, String>{
 	//public List<DBFile> findByServerCategorie(ServerCategorie serverCategorie);
 
 	public List<DBFile> findByServerCategorieId(Long idCategorie);
+	public List<DBFile> findByServerCategorieId(String idCategorie);
 
 	public DBFile findById (Long id);
 

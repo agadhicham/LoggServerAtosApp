@@ -37,104 +37,93 @@ import javax.websocket.server.PathParam;
  * */
 //@RequestMapping("/files")
 @RestController
-@CrossOrigin(origins="http://localhost:4200",allowedHeaders="*")
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 public class FileController {
-	
 
-    @Autowired
-    private com.example.demo.service.DBFileStorageService DBFileStorageService;
-    
-    @Autowired
-    private DBFileRepository dBFileRepository; 
+	@Autowired
+	private com.example.demo.service.DBFileStorageService DBFileStorageService;
 
-   
-    
-    @PostMapping(value="/uploadFile"
-    		//,consumes = { "multipart/form-data", MediaType.APPLICATION_JSON_VALUE }
-    		)
-    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
-        DBFile dbFile = DBFileStorageService.storeFile(file);
+	@Autowired
+	private DBFileRepository dBFileRepository;
 
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(dbFile.getId())
-                .toUriString();
+	@PostMapping(value = "/uploadFile"
+	// ,consumes = { "multipart/form-data", MediaType.APPLICATION_JSON_VALUE }
+	)
+	public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
+		DBFile dbFile = DBFileStorageService.storeFile(file);
 
-        return new UploadFileResponse(dbFile.getFileName(), fileDownloadUri,
-                file.getContentType(), file.getSize());
-    }
+		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/")
+				.path(dbFile.getId()).toUriString();
 
-    @PostMapping("/uploadMultipleFiles")
-    public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-        return Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
-    }
+		return new UploadFileResponse(dbFile.getFileName(), fileDownloadUri, file.getContentType(), file.getSize());
+	}
 
-    @GetMapping("/downloadFile/{fileId}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) {
-        // chargement d'un fichier à partie de la base de donnée 
-        DBFile dbFile = DBFileStorageService.getFile(fileId);
+	@PostMapping("/uploadMultipleFiles")
+	public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
+		return Arrays.asList(files).stream().map(file -> uploadFile(file)).collect(Collectors.toList());
+	}
 
-        return ResponseEntity.ok()
-             .contentType(MediaType.parseMediaType(dbFile.getFileType()))
-             .header(HttpHeaders.CONTENT_DISPOSITION, "attachement; filename=\"" + dbFile.getFileName()+ "\"")
-             .body(new ByteArrayResource(dbFile.getData()));
+	@GetMapping("/downloadFile/{fileId}")
+	public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) {
+		// chargement d'un fichier à partie de la base de donnée
+		DBFile dbFile = DBFileStorageService.getFile(fileId);
 
-    }
+		return ResponseEntity.ok().contentType(MediaType.parseMediaType(dbFile.getFileType()))
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachement; filename=\"" + dbFile.getFileName() + "\"")
+				.body(new ByteArrayResource(dbFile.getData()));
 
-    @GetMapping(value="/getAllFiles")
-    public List<DBFile> getAll(){
-    	return dBFileRepository.findAll();
-    }
-    
-    
-    @GetMapping("/filesOfCat/{id}")
-    public List<DBFile>getFilesByCta(@PathVariable(value="id") Long id){
-    	System.out.println(dBFileRepository.findByServerCategorieId(id));
-    	return this.dBFileRepository.findByServerCategorieId(id);
-    } 
-    
+	}
+
+	@GetMapping(value = "/getAllFiles")
+	public List<DBFile> getAll() {
+		return dBFileRepository.findAll();
+	}
+
+	@GetMapping("/filesOfCat/{id}")
+	public List<DBFile> getFilesByCta(@PathVariable(value = "id") Long id) {
+		System.out.println(dBFileRepository.findByServerCategorieId(id));
+		return this.dBFileRepository.findByServerCategorieId(id);
+	}
+
+	@GetMapping("/filesOfCategorie/{id}")
+	public List<DBFile> getFilesByCtat(@PathParam(value = "id") String id) {
+		System.out.println(dBFileRepository.findByServerCategorieId(id));
+		return this.dBFileRepository.findByServerCategorieId(id);
+	}
+
 //    @GetMapping("/selectOneFile/{id}")
 //    public  DBFile getOneFile(@PathVariable(value="id") String id)  {
 //    	System.out.println("ttotootototot"+id);
 //        return this.DBFileStorageService.getFile(id);
 //    }
-    
-   //facultafif ca va etre utiliser !!!! ulterriereemnt 
-    @RequestMapping("/readFileToString/{filePath}")
-    private  String readLineByLineJava8(@PathVariable(value="filePath") String filePath)
-    {
-        DBFile dbFile = DBFileStorageService.getFile(filePath);
-        ResponseEntity.ok()
-        .contentType(MediaType.parseMediaType(dbFile.getFileType()))
-        .header(HttpHeaders.CONTENT_DISPOSITION, "attachement; filename=\"" + dbFile.getFileName()+ "\"")
-        .body(new ByteArrayResource(dbFile.getData()));
-        
-        StringBuilder contentBuilder = new StringBuilder();
-System.out.println(contentBuilder.toString());
-        try (Stream<String> stream = Files.lines( Paths.get(filePath), StandardCharsets.UTF_8))
-        {
-            stream.forEach(s -> contentBuilder.append(s).append("\n"));
 
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
- System.out.println(contentBuilder.toString());
-        return contentBuilder.toString();
-    }
-    
-    @RequestMapping(value="/chercherUnFichier")
-    public Page<DBFile> chercher
-            (@RequestParam(name = "page", defaultValue = "0") int p,
-        			@RequestParam(name = "size", defaultValue = "6") int s,
-        			@RequestParam(name = "motCle", defaultValue = "") String motCle) {
-    	System.out.println(dBFileRepository.chercherFichier("%" + motCle + "%", new PageRequest(p, s)));
-       return dBFileRepository.chercherFichier("%" + motCle + "%", new PageRequest(p, s));	
-    }
+	// facultafif ca va etre utiliser !!!! ulterriereemnt
+	@RequestMapping("/readFileToString/{filePath}")
+	private String readLineByLineJava8(@PathVariable(value = "filePath") String filePath) {
+		DBFile dbFile = DBFileStorageService.getFile(filePath);
+		ResponseEntity.ok().contentType(MediaType.parseMediaType(dbFile.getFileType()))
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachement; filename=\"" + dbFile.getFileName() + "\"")
+				.body(new ByteArrayResource(dbFile.getData()));
+
+		StringBuilder contentBuilder = new StringBuilder();
+		System.out.println(contentBuilder.toString());
+		try (Stream<String> stream = Files.lines(Paths.get(filePath), StandardCharsets.UTF_8)) {
+			stream.forEach(s -> contentBuilder.append(s).append("\n"));
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println(contentBuilder.toString());
+		return contentBuilder.toString();
+	}
+
+	@RequestMapping(value = "/chercherUnFichier")
+	public Page<DBFile> chercher(@RequestParam(name = "page", defaultValue = "0") int p,
+			@RequestParam(name = "size", defaultValue = "6") int s,
+			@RequestParam(name = "motCle", defaultValue = "") String motCle) {
+		System.out.println(dBFileRepository.chercherFichier("%" + motCle + "%", new PageRequest(p, s)));
+		return dBFileRepository.chercherFichier("%" + motCle + "%", new PageRequest(p, s));
+	}
 //    @RequestMapping(value="/chercherUnFichier")
 //    public Page<DBFile> cherche
 //            (@RequestParam(name = "page", defaultValue = "0") int p,
