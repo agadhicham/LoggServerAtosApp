@@ -11,9 +11,18 @@ import com.example.demo.model.DBFile;
 
 import java.io.IOException;
 
+/**
+ * @author A752328
+ *
+ */
+/**
+ * @author A752328
+ *
+ */
 @Service
 public class DBFileStorageService {
 
+	
     @Autowired
     private DBFileRepository dbFileRepository;
 
@@ -24,9 +33,7 @@ public class DBFileStorageService {
             if(fileName.contains("..")) {
                 throw new com.example.demo.exception.FileStorageException("Attention ! Format de fichier voulu n'existe pas !!" + fileName);
             }
-
             DBFile dbFile = new DBFile(fileName, file.getContentType(), file.getBytes());
-
             return dbFileRepository.save(dbFile);
         } catch (IOException ex) {
             throw new com.example.demo.exception.FileStorageException("Le fichier sur nom n'est pas enregestrer" + fileName + ".veuillez esseyer!", ex);

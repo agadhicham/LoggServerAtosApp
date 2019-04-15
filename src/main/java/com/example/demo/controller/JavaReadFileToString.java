@@ -17,8 +17,7 @@ public class JavaReadFileToString
     }
  
  
-    //Read file content into string with - Files.lines(Path path, Charset cs)
- 
+   
     private static String readLineByLineJava8(String filePath)
     {
         StringBuilder contentBuilder = new StringBuilder();

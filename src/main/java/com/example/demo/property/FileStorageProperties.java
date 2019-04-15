@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-//le role de cette aanotation est de lier automatiquement  les propriétés définis dans le application.propreties fichier avec des classes pojo de java
+//le role de cette anotation est de lier automatiquement  les propriétés définis dans le application.propreties fichier avec des classes pojo de java
 //faire leur travail au démarrage de l'application 
 @ConfigurationProperties(prefix = "file")
 @Data

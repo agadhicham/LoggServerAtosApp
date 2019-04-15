@@ -46,32 +46,34 @@ public class FileController {
 	@Autowired
 	private DBFileRepository dBFileRepository;
 
-	@PostMapping(value = "/uploadFile"
-	// ,consumes = { "multipart/form-data", MediaType.APPLICATION_JSON_VALUE }
-	)
+	@PostMapping(value = "/uploadFile"// ,consumes = { "multipart/form-data", MediaType.APPLICATION_JSON_VALUE }
+			)
 	public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
 		DBFile dbFile = DBFileStorageService.storeFile(file);
 
-		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/")
-				.path(dbFile.getId()).toUriString();
-
+		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+				                                            .path("/downloadFile/")
+				                                            .path(dbFile.getId()).toUriString();
 		return new UploadFileResponse(dbFile.getFileName(), fileDownloadUri, file.getContentType(), file.getSize());
 	}
 
 	@PostMapping("/uploadMultipleFiles")
 	public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-		return Arrays.asList(files).stream().map(file -> uploadFile(file)).collect(Collectors.toList());
+		return Arrays.asList(files)
+				.stream()
+				.map(file -> uploadFile(file))
+				//collect permet ici simplement de stocker le résultat dans une liste
+				.collect(Collectors.toList());
 	}
 
 	@GetMapping("/downloadFile/{fileId}")
 	public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) {
 		// chargement d'un fichier à partie de la base de donnée
 		DBFile dbFile = DBFileStorageService.getFile(fileId);
-
-		return ResponseEntity.ok().contentType(MediaType.parseMediaType(dbFile.getFileType()))
+		return ResponseEntity.ok()
+				.contentType(MediaType.parseMediaType(dbFile.getFileType()))
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachement; filename=\"" + dbFile.getFileName() + "\"")
 				.body(new ByteArrayResource(dbFile.getData()));
-
 	}
 
 	@GetMapping(value = "/getAllFiles")
@@ -132,5 +134,15 @@ public class FileController {
 //    	System.out.println(dBFileRepository.chercherFichier("%" + motCle + "%", new PageRequest(p, s)));
 //       return dBFileRepository.chercherFichier("%" + motCle + "%", new PageRequest(p, s));	
 //    }
+	
+	@GetMapping("/downloadFile/{fileId}")
+	public ResponseEntity<Resource> downloadFil(@PathVariable String fileId,@PathVariable String motRchercher) {
+		// chargement d'un fichier à partie de la base de donnée
+		DBFile dbFile = DBFileStorageService.getFile(fileId);
+	System.out.println(dbFile.getData());
+		return ResponseEntity.ok().contentType(MediaType.parseMediaType(dbFile.getFileType()))
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachement; filename=\"" + dbFile.getFileName() + "\"")
+				.body(new ByteArrayResource(dbFile.getData()));
+	}
 
 }

@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @CrossOrigin(allowedHeaders="*",value="*")
 public class CategorieService {
 
-	
+	private List<String> url= new ArrayList<>();
 	@Autowired
 	private CategorieImplimentation categorieImplimentation;
 	
@@ -47,6 +48,12 @@ public class CategorieService {
 	return categorieImplimentation.deleteCategorieById(id);
 	}
 	
+//	@GetMapping(value="/categorierPicture/{url}")
+//	public ServerCategorie getCategoriePicture(@PathVariable Long id) {
+//		
+//		return categorieImplimentation.getOneCategorie(id);
+//	}
+//	
 }
 	
 
