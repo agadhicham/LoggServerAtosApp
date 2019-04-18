@@ -6,19 +6,16 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
- 
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+@RestController
 public class JavaReadFileToString
 {
-    public static void main(String[] args)
-    {
-        String filePath = "C:/Users/A752328/Desktop/filereader.txt";
  
-        System.out.println( readLineByLineJava8( filePath ) );
-    }
- 
- 
-   
-    private static String readLineByLineJava8(String filePath)
+   @GetMapping(value="/dow")
+    private static String readLineByLineJava8(@PathVariable String filePath)
     {
         StringBuilder contentBuilder = new StringBuilder();
         System.out.println(contentBuilder.toString());

@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -25,6 +26,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -36,10 +38,11 @@ import javax.websocket.server.PathParam;
  * ainsi que la récuperation du fichier télecharger
  * */
 //@RequestMapping("/files")
+@Service
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 public class FileController {
-
+    private ResponseEntity<ByteArrayResource> resultat;
 	@Autowired
 	private com.example.demo.service.DBFileStorageService DBFileStorageService;
 
@@ -67,15 +70,43 @@ public class FileController {
 	}
 
 	@GetMapping("/downloadFile/{fileId}")
-	public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) {
+	public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) {	
+
 		// chargement d'un fichier à partie de la base de donnée
 		DBFile dbFile = DBFileStorageService.getFile(fileId);
+
+		StringBuilder contentBuilder = new StringBuilder();
+		System.out.println(contentBuilder.toString());
+		try (Stream<String> stream = Files.lines(Paths.get(fileId), StandardCharsets.UTF_8)) {
+			stream.forEach(s -> contentBuilder.append(s).append("\n"));
+			System.out.println("il s'agit de serveur Appache");
+			if(contentBuilder.toString().contains("[error]") ) {
+				System.out.println("il s'agit de serveur Appache");
+			}
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println(contentBuilder.toString());
+		
+		return ResponseEntity.ok()
+				.contentType(MediaType.parseMediaType(dbFile.getFileType()))
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachement; filename=\"" + dbFile.getFileName() + "\"")
+				.body(new ByteArrayResource(dbFile.getData()));		
+	}
+
+	@GetMapping(value="/downloadFilee/{id}")
+	public ResponseEntity<Resource> downloadFilee(@PathVariable String id) {
+System.out.println("nnn");
+		// chargement d'un fichier à partie de la base de donnée
+		DBFile dbFile = DBFileStorageService.getFile(id);
 		return ResponseEntity.ok()
 				.contentType(MediaType.parseMediaType(dbFile.getFileType()))
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachement; filename=\"" + dbFile.getFileName() + "\"")
 				.body(new ByteArrayResource(dbFile.getData()));
 	}
-
 	@GetMapping(value = "/getAllFiles")
 	public List<DBFile> getAll() {
 		return dBFileRepository.findAll();
@@ -99,9 +130,9 @@ public class FileController {
 //        return this.DBFileStorageService.getFile(id);
 //    }
 
-	// facultafif ca va etre utiliser !!!! ulterriereemnt
-	@RequestMapping("/readFileToString/{filePath}")
-	private String readLineByLineJava8(@PathVariable(value = "filePath") String filePath) {
+	// facultafif ca va etre utiliser !!!! 
+	@RequestMapping(value="/readFileToString/{filePath}")
+	private String readLineByLineJava8(@PathVariable(name="filePath") String filePath) {
 		DBFile dbFile = DBFileStorageService.getFile(filePath);
 		ResponseEntity.ok().contentType(MediaType.parseMediaType(dbFile.getFileType()))
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachement; filename=\"" + dbFile.getFileName() + "\"")
