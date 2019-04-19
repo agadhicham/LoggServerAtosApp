@@ -23,6 +23,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.CommandLinePropertySource;
 
+import com.example.demo.controller.FileController;
 import com.example.demo.controller.JavaReadFileToString;
 import com.example.demo.dao.DBFileRepository;
 import com.example.demo.entities.File;
@@ -37,7 +38,8 @@ import com.example.demo.service.CategorieService;
 @EnableConfigurationProperties({ FileStorageProperties.class })
 public class AppLog1Application implements CommandLineRunner {
 
-	
+	@Autowired
+	private FileController fileController;
 	
 	@Autowired
 	private CategorieService categorieService;
@@ -46,7 +48,8 @@ public class AppLog1Application implements CommandLineRunner {
 	private FileImplementation fileImplementation;
 	@Autowired
 	private DBFileRepository dbFileRepository;
-
+	
+	
 	
 	public static void main(String[] args) {
 	
@@ -79,6 +82,8 @@ public class AppLog1Application implements CommandLineRunner {
 //		File file = new File(null, "fileAA", null, null, serverCategorie);
 //		fileImplementation.saveFile(file);
 		System.out.println(fileImplementation.findAllFiles().toString());
+		System.out.println("////////////////////////////");
+		//System.out.println(this.fileController.getFilesByCtat(new DBFile().getId()));
 
 //		
 //		DBFile dbFile= new DBFile(null, "gggg", null, null, new ServerCategorie(null, "tttt", null));
