@@ -104,7 +104,7 @@ public class FileController {
 		String fichierFiltrer = new String(dbFile.getData());
 		
 		if (fichierFiltrer.contains("[error]")) {
-			System.out.println("it done bravo");
+			System.out.println("il s'agit de serveur appache");
 		}
 		else 
 			System.out.println("oooppppsss");
