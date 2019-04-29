@@ -21,6 +21,7 @@ import com.example.demo.entities.File;
 import com.example.demo.entities.ServerCategorie;
 import com.example.demo.model.DBFile;
 import com.example.demo.payload.UploadFileResponse;
+import com.example.demo.service.ServerTriningService;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -50,6 +51,8 @@ public class FileController {
 
 	@Autowired
 	private DBFileRepository dBFileRepository;
+	 @Autowired
+	 private ServerTriningService serverTriningService;
 	
 
     
@@ -81,12 +84,7 @@ public class FileController {
 		String IdFilePath=dbFile.getId();
 		System.out.println("Id fichier pour le path "+IdFilePath);
 		StringBuilder contentBuilder = new StringBuilder();
-		
 		String path="http://localhost:8081/downloadFile/"+IdFilePath;
-		
-		
-		
-		
 		/*try (Stream<String> stream = Files.lines(Paths.get(fileId), StandardCharsets.UTF_8)) {
 			stream.forEach(s -> contentBuilder.append(s).append("\n"));
 		} catch (IOException e) {
@@ -108,6 +106,9 @@ public class FileController {
 		}
 		else 
 			System.out.println("oooppppsss");
+		
+	//	this.serverTriningService.tomcatFiltrageEstimation(fileId);
+		
 		System.out.println(fichierFiltrer);
 		
 		

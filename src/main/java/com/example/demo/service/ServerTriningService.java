@@ -6,6 +6,7 @@ import javax.websocket.server.ServerApplicationConfig;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.demo.controller.FileController;
 import com.example.demo.interfece.ServreAppacheTrining;
@@ -29,14 +30,14 @@ public class ServerTriningService implements ServreAppacheTrining, ServreJbossTr
 	}
 
 	@Override
-	public String tomcatFiltrageEstimation(String  fileId) {
+	public String tomcatFiltrageEstimation(@PathVariable String  fileId) {
 		// TODO Auto-generated method stub
 		try {
 			this.fileController.downloadFile(fileId);
 			DBFile dbFile = this.dBFileStorageService.getFile(fileId);
 			String filtreChaine = new String(dbFile.getData());
 			
-			if (filtreChaine.contains("")) {
+			if (filtreChaine.contains("[error]")) {
 				 reponseOfSearch= "Tomcat_Server";
 			}
 		} catch (IOException e) {
