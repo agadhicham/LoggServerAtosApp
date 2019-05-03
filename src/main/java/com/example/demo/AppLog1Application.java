@@ -67,13 +67,13 @@ public class AppLog1Application implements CommandLineRunner {
 //		categorieService.saveServerCategorie(new ServerCategorie(null, "Apache", null));
 //		categorieService.saveServerCategorie(new ServerCategorie(null, "Tomcate", null));
 
-	// ServerCategorie categorie =new ServerCategorie(null, "serverjboss2");
+// ServerCategorie categorie =new ServerCategorie(null, "serverjboss2");
 //		// System.out.println(categorie.getNomCategorie());
 //		System.out.println("**************************************************************");
 //		ServerCategorie serverCategorie = new ServerCategorie(null, "ServerCateg2", null);
 //		categorieService.saveServerCategorie(serverCategorie);
 
-		System.out.println("====================");
+		System.out.println("===================="); 
 		System.out.println("La liste des categories");
 		System.out.println(categorieService.getAllCat().toString());
 		System.out.println("====================");

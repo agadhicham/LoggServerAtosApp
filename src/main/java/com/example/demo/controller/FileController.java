@@ -43,7 +43,8 @@ import javax.websocket.server.PathParam;
 //@RequestMapping("/files")
 @Service
 @RestController
-@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
+@CrossOrigin(origins = "http://localhost:4444", allowedHeaders = "*")
+
 public class FileController {
     private ResponseEntity<ByteArrayResource> resultat;
 	@Autowired
@@ -60,7 +61,6 @@ public class FileController {
 			)
 	public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
 		DBFile dbFile = DBFileStorageService.storeFile(file);
-
 		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
 				                                            .path("/downloadFile/")
 				                                            .path(dbFile.getId()).toUriString();
@@ -76,6 +76,7 @@ public class FileController {
 				.collect(Collectors.toList());
 	}
 
+	
 	@GetMapping("/downloadFile/{fileId}")
 	public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) throws IOException {	
 		// chargement d'un fichier à partie de la base de donnée
@@ -117,6 +118,7 @@ public class FileController {
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachement; filename=\"" + dbFile.getFileName().toString()+ "\"")
 				.body(new ByteArrayResource(dbFile.getData()));		
 	}
+	
 
 	
 	@GetMapping(value = "/getAllFiles")

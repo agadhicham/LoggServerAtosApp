@@ -14,6 +14,7 @@ import com.example.demo.entities.ServerCategorie;
 import com.example.demo.model.DBFile;
 
 @Repository
+
 public interface DBFileRepository extends JpaRepository<DBFile, String>{
 	//public List<DBFile> findByServerCategorie(ServerCategorie serverCategorie);
 

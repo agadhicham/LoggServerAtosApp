@@ -29,6 +29,7 @@ public class CategorieService {
 	
 	@GetMapping(value="/allCategories")
 	public List<ServerCategorie> getAllCat(){
+		
 		return categorieImplimentation.findAll();
 	}
 	

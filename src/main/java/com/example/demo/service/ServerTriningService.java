@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.websocket.server.ServerApplicationConfig;
 
@@ -15,63 +16,93 @@ import com.example.demo.interfece.ServreTomcatTrining;
 import com.example.demo.model.DBFile;
 
 @Service
-public class ServerTriningService implements ServreAppacheTrining, ServreJbossTrining, ServreTomcatTrining{
+public class ServerTriningService implements ServreAppacheTrining, ServreJbossTrining, ServreTomcatTrining {
 
 	@Autowired
 	private DBFileStorageService dBFileStorageService;
+
 	@Autowired
 	private FileController fileController;
-    private	String reponseOfSearch="";
-	
-	@Override
-	public String tomcatFiltrage() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+	private String reponseOfSearch = "";
 
 	@Override
-	public String tomcatFiltrageEstimation(@PathVariable String  fileId) {
-		// TODO Auto-generated method stub
-		try {
-			this.fileController.downloadFile(fileId);
+	public String tomcatFiltrageToGetEstimation(@PathVariable String fileId) throws IOException {
 			DBFile dbFile = this.dBFileStorageService.getFile(fileId);
 			String filtreChaine = new String(dbFile.getData());
 			
+
 			if (filtreChaine.contains("[error]")) {
-				 reponseOfSearch= "Tomcat_Server";
+				reponseOfSearch = "Tomcat_Server";
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+
 		return reponseOfSearch;
 	}
 
-	@Override	
-	public String jbossFiltrage() {
+	@Override
+	public String tomcatFiltrageToGetServer(String fieldId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String jbossFiltrageEstimation() {
+	public String jbossFiltrageToGetServer(String fieldId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String appacheFiltrage() {
+	public String jbossFiltrageToGetEstimation(String fieldId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String appacheFiltrageEstimation() {
+	public Date appacheFiltrageToGetDate(String fieldId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
 
+	@Override
+	public Long appacheFiltrageToGetOccurence(String fieldId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String[] tomcatFiltrageToGetDate(String fieldId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Long tomcatFiltrageToGetOccurence(String fieldId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Date jbossFiltrageToGetDate(String fieldId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Long jbossFiltrageToGetOccurence(String fieldId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String appacheFiltrageToGetServer(String fieldId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String appacheFiltrageToGetEstimation(String fieldId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

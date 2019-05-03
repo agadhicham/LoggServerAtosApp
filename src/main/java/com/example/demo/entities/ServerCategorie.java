@@ -36,6 +36,7 @@ public class ServerCategorie {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	//@Length()
+	
 	private String nomCategorie;
 	@OneToMany(fetch = FetchType.EAGER, mappedBy ="", cascade =CascadeType.ALL)
 	private List<DBFile> dbFiles=new ArrayList<DBFile>();
