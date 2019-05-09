@@ -37,7 +37,7 @@
 //	private DBFileRepository dBFileRepository;
 //	
 //	@RequestMapping(value="/filterInFile/{motCle}")
-//    public String getServerFilter(@PathVariable String motCle) {
+//a    public String getServerFilter(@PathVariable String motCle) {
 //		sy
 //		fileController.downloadFile(motCle);
 //		return motCle;

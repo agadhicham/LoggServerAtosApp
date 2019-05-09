@@ -1,16 +1,20 @@
 package com.example.demo.controller;
 
 import java.util.Date;
+import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.service.AutowiredUses;
 import com.example.demo.service.TomcatServerServiceTrining;
 
+@Controller
 @RestController
 @RequestMapping(path="/tomcat/server")
 public class TomcatApiFilter {
@@ -26,13 +30,19 @@ public class TomcatApiFilter {
 		return this.tomcatServerServiceTrining.tomcatFiltrageToGetServer(fileId);
 	}
 	
+
 	@GetMapping("/serverDate/{fileId}")
-	public String[] getTomcatServerDate(@PathVariable String fileId) {
+	public String[] getTomcatServerDate(@PathVariable String fileId 
+			                          // @RequestParam(name="searshKey", defaultValue="") String searshKey
+			                            ) {
 		return this.tomcatServerServiceTrining.tomcatFiltrageToGetDate(fileId);
 	}
 	
-	@GetMapping("/serverCleOccurence")
-	public Long getTomcatServerCleOccurence(@PathVariable String fileId) {
+	@GetMapping("/serverCleOccurence/{fileId}")
+	public Long getTomcatServerCleOccurence(@PathVariable String fileId) throws IOException{
 		return this.tomcatServerServiceTrining.tomcatFiltrageToGetOccurence(fileId);
 	}
+
+	
+	
 }

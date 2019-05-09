@@ -33,5 +33,6 @@ public class JbossApiFilter {
 	public Long jbossServerGetOccurence(String fileId) {
 		return this.jbossServerServiceTrining.jbossFiltrageToGetOccurence(fileId);
 	}
+	
 
 }
