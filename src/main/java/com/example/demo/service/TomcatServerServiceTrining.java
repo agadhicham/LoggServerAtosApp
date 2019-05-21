@@ -72,82 +72,81 @@ public class TomcatServerServiceTrining implements ServreTomcatTrining {
 
 		DBFile dbFile = this.dBFileStorageService.getFile(fieldId);
 		new String(dbFile.getData());
-		String[] splitArray = null; 
+		String[] splitArray = null;
 		String str = new String(dbFile.getData());
 		splitArray = str.split(" ");
-//			for (int i = 0; i < splitArray.length; i++) {
-//				System.out.println("élement n° " + i + "=[" + splitArray[3] + "]");
-//				this.tot = splitArray[splitArray.length - 1];
-//			
-//		}
-//			if (str.contains("GET")) {
-//				for (int i = 0; i < splitArray.length; i++) {
-//				// On affiche chaque élément du tableau
-//				System.out.println("élement n° " + i + "=[" + splitArray[3] + "]");
-//				this.total = splitArray[splitArray.length - 1];
-//				// System.out.println(splitArray[splitArray.length-1]);
-//			}
-//		
-//		}
-		//this.totalOccurence = splitArray[splitArray.length - 1];
+			for (int i = 0; i < splitArray.length; i++) {
+				//System.out.println("élement n° " + i + "=[" + splitArray[3] + "]");
+			//	this.tot = splitArray[splitArray.length - 1];
+			
+		}
+			if (str.contains("GET")) {
+				for (int i = 0; i < splitArray.length; i++) {
+				// On affiche chaque élément du tableau
+				System.out.println("élement n° " + i + "=[" + splitArray[3] + "]");
+				this.total = splitArray[splitArray.length - 1];
+				 System.out.println(this.total);
+			}
+		
+		}
+		 this.totalOccurence = splitArray[splitArray.length - 1];
 		System.out.println("+-+-+-+-+-+-");
 		System.out.println(totalOccurence);
 		System.out.println("+-+-+-+-+-+-");
-		System.out.println(total);
+//		System.out.println(total);
 
 		return splitArray;
 	}
 
 	@Override
-	public Long tomcatFiltrageToGetOccurence(String fieldId) throws IOException{
-		System.out.println("total des occurences");
-//		DBFile dbFile = this.dBFileStorageService.getFile(fieldId);
-//		new String(dbFile.getData());
-//		// tableau de chaînes sur la condition num 1
-//		String[] splitArray = null;
+	public String tomcatFiltrageToGetOccurence(String fieldId) throws IOException {
+		int totalecententSearsh=0;
+		
+		DBFile dbFile = this.dBFileStorageService.getFile(fieldId);
+		// tableau de chaînes sur la condition num 1
+		byte[] splitArray =dbFile.getData();
 //		// la chaîne à traiter
 //		String str = new String(dbFile.getData());
 //		// On découpe la chaîne "str" à traiter et on récupère le résultat dans le tableau "splitArray"
 //		splitArray = str.split(" ");
-//		for (int i = 0; i < splitArray.length; i++) {
-//			this.totalOccurence = splitArray[splitArray.length - 1];
+		String contentSearsh = new String (dbFile.getData());
+		
+//		if (contentSearsh.contains("pdf?idCommande")) {
+//			for (int i = 0; i < splitArray.length; i++) {
+//				totalecententSearsh = splitArray.length-1;
+//			}
+//			System.out.println("+-+-+-+-+-+-");
+//			System.err.println(totalecententSearsh);
+//			System.out.println("+-+-+-+-+-+-");
 //		}
-//		System.out.println("+-+-+-+-+-+-");
-//		System.out.println(totalOccurence);
-//		System.out.println("+-+-+-+-+-+-");
-//		return Long.parseLong(totalOccurence);
+//		
 		
-		//DBFile dbFile= this.dBFileStorageService.getFile(fieldId);
-		  String[] words=null;  
-	      FileReader fr = new FileReader("java taba java");  
-	      BufferedReader br = new BufferedReader(fr); 
-	      String s;     
-	      String input="Java";   
-	      Long count= null;   
-	      while((s=br.readLine())!=null)   
-	      {
-	         words=s.split(" ");  
-	          for (String word : words) 
-	          {
-	                 if (word.equals(input))   
-	                 {
-	                   count++;    
-	                 }
-	          }
-	      }
-	      if(count!=0)  
-	      {
-	         System.out.println("The given word is present for "+count+ " Times in the file");
-	      }
-	      else
-	      {
-	         System.out.println("The given word is not present in the file");
-	      }
-	      
-	         fr.close();
-	   
-		return count;
-		
+		    //String totalElementCountforfieldSearsh=splitArray[splitArray.length-1];
+
+		//DBFile dbFile = this.dBFileStorageService.getFile(fieldId);
+		String[] words = null;
+		FileReader fr = new FileReader(contentSearsh);
+		BufferedReader br = new BufferedReader(fr);
+		String s;
+		String input = "pdf?idCommande=129719034";
+		Long count = null;
+		while ((s = br.readLine()) != null) {
+			words = s.split(" ");
+			for (String word : words) {
+				if (word.equals(input)) {
+					count++;
+				}
+			}
+		}
+		if (count != 0) {
+			System.out.println("The given word is present for " + count + " Times in the file");
+		} else {
+			System.out.println("The given word is not present in the file");
+		}
+
+		fr.close();
+		return null;
+
 	}
 
 }

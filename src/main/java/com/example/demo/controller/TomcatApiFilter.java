@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.service.AutowiredUses;
 import com.example.demo.service.TomcatServerServiceTrining;
 
-@Controller
+//@Controller
 @RestController
 @RequestMapping(path="/tomcat/server")
 public class TomcatApiFilter {
@@ -39,10 +39,11 @@ public class TomcatApiFilter {
 	}
 	
 	@GetMapping("/serverCleOccurence/{fileId}")
-	public Long getTomcatServerCleOccurence(@PathVariable String fileId) throws IOException{
+	public String getTomcatServerCleOccurence(@PathVariable String fileId) throws IOException{
 		return this.tomcatServerServiceTrining.tomcatFiltrageToGetOccurence(fileId);
 	}
 
+	
 	
 	
 }

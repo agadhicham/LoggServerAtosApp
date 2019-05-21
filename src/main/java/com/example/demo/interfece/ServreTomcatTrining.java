@@ -9,7 +9,7 @@ public interface ServreTomcatTrining {
 	public String tomcatFiltrageToGetServer(String fieldId);
 	public String tomcatFiltrageToGetEstimation(String fieldId) throws IOException;
 	public String[] tomcatFiltrageToGetDate(String fieldId);
-	public Long tomcatFiltrageToGetOccurence(String fieldId) throws IOException;
+	public String tomcatFiltrageToGetOccurence(String fieldId) throws IOException;
 	
 
 }
