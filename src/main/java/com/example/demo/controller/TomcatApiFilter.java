@@ -1,6 +1,9 @@
 package com.example.demo.controller;
 
 import java.util.Date;
+
+import javax.websocket.server.PathParam;
+
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +42,8 @@ public class TomcatApiFilter {
 	}
 	
 	@GetMapping("/serverCleOccurence/{fileId}")
-	public String getTomcatServerCleOccurence(@PathVariable String fileId) throws IOException{
-		return this.tomcatServerServiceTrining.tomcatFiltrageToGetOccurence(fileId);
+	public String getTomcatServerCleOccurence(@PathVariable String fileId,@PathParam(value = "motCle") String motCle) throws IOException{
+		return this.tomcatServerServiceTrining.tomcatFiltrageToGetOccurence(fileId, motCle);
 	}
 
 	

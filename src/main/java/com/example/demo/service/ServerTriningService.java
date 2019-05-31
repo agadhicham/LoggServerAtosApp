@@ -76,7 +76,7 @@ public class ServerTriningService implements ServreAppacheTrining, ServreJbossTr
 	}
 
 	@Override
-	public String tomcatFiltrageToGetOccurence(String fieldId) {
+	public String tomcatFiltrageToGetOccurence(String fieldId, String motCle) {
 		// TODO Auto-generated method stub
 		return null;
 	}

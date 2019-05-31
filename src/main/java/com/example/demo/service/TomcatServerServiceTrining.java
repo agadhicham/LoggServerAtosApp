@@ -18,12 +18,14 @@ public class TomcatServerServiceTrining implements ServreTomcatTrining {
 
 	@Autowired
 	private DBFileStorageService dBFileStorageService;
-
+    
 	private String serverName = "";
 	private Long occurenceOfKey = null;
 	private String totalOccurence = null;
-	String total = "";
-
+	private String total = "";
+    private String wordSearshe="";
+	
+	
 	@Override
 	public String tomcatFiltrageToGetServer(String fieldId) {
 		DBFile dbFile = this.dBFileStorageService.getFile(fieldId);
@@ -99,53 +101,36 @@ public class TomcatServerServiceTrining implements ServreTomcatTrining {
 	}
 
 	@Override
-	public String tomcatFiltrageToGetOccurence(String fieldId) throws IOException {
-		int totalecententSearsh=0;
-		
-		DBFile dbFile = this.dBFileStorageService.getFile(fieldId);
-		// tableau de chaînes sur la condition num 1
-		byte[] splitArray =dbFile.getData();
-//		// la chaîne à traiter
-//		String str = new String(dbFile.getData());
-//		// On découpe la chaîne "str" à traiter et on récupère le résultat dans le tableau "splitArray"
-//		splitArray = str.split(" ");
-		String contentSearsh = new String (dbFile.getData());
-		
-//		if (contentSearsh.contains("pdf?idCommande")) {
-//			for (int i = 0; i < splitArray.length; i++) {
-//				totalecententSearsh = splitArray.length-1;
-//			}
-//			System.out.println("+-+-+-+-+-+-");
-//			System.err.println(totalecententSearsh);
-//			System.out.println("+-+-+-+-+-+-");
-//		}
-//		
-		
-		    //String totalElementCountforfieldSearsh=splitArray[splitArray.length-1];
-
-		//DBFile dbFile = this.dBFileStorageService.getFile(fieldId);
-		String[] words = null;
-		FileReader fr = new FileReader(contentSearsh);
-		BufferedReader br = new BufferedReader(fr);
-		String s;
-		String input = "pdf?idCommande=129719034";
-		Long count = null;
-		while ((s = br.readLine()) != null) {
-			words = s.split(" ");
-			for (String word : words) {
-				if (word.equals(input)) {
-					count++;
-				}
-			}
+	public String tomcatFiltrageToGetOccurence(String fieldId, String motCle) throws IOException {
+	DBFile dbFile= this.dBFileStorageService.getFile(fieldId);
+	String contentInFile = new String(dbFile.getData());
+	
+	 String strArray[] = contentInFile.split("\\n");
+     int t=0;
+	 for (int i = 0; i < strArray.length; i++) {
+		//System.out.println(strArray[i]);
+		if (contentInFile.contains(motCle)) {
+			t=strArray.length;
 		}
-		if (count != 0) {
-			System.out.println("The given word is present for " + count + " Times in the file");
-		} else {
-			System.out.println("The given word is not present in the file");
-		}
-
-		fr.close();
-		return null;
+	}
+	 System.err.println("total="+t);
+	 
+	if (contentInFile.contains(motCle))
+	{
+	 System.out.println("yeep i find it !!!!");
+	 System.err.println(strArray.length);
+	}
+	  int count =0;
+      //byte[] bytesArray = new byte[(int)contentInFile.length()];
+      //fis.read(bytesArray);
+      String s = new String(dbFile.getData());
+      String [] data = s.split(" ");
+      for (int i=0; i<data.length; i++) {
+         count++;
+      }
+      System.out.println("Number of characters in the given file are " +count);
+	//System.out.println(contentInFile);
+			return contentInFile;
 
 	}
 

@@ -50,7 +50,7 @@ public class SearshKeyService {
 		 String contentSearsh= new String(dbFile.getData());
 		 if (contentSearsh.contains(searshKey)) {
 			 try {
-				tomcatServerServiceTrining.tomcatFiltrageToGetOccurence(fileId);
+				tomcatServerServiceTrining.tomcatFiltrageToGetOccurence(fileId, contentSearsh);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
