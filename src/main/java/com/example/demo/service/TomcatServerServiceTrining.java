@@ -22,7 +22,7 @@ public class TomcatServerServiceTrining implements ServreTomcatTrining {
 	private String serverName = "";
 	private Long occurenceOfKey = null;
 	private String totalOccurence = null;
-	private String total = "";
+	private int total = 0;
     private String wordSearshe="";
 	
 	
@@ -75,28 +75,26 @@ public class TomcatServerServiceTrining implements ServreTomcatTrining {
 		DBFile dbFile = this.dBFileStorageService.getFile(fieldId);
 		new String(dbFile.getData());
 		String[] splitArray = null;
+		String[] splitArray1 = null;
+
 		String str = new String(dbFile.getData());
-		splitArray = str.split(" ");
+		splitArray = str.split("WebServices");
 			for (int i = 0; i < splitArray.length; i++) {
 				//System.out.println("élement n° " + i + "=[" + splitArray[3] + "]");
 			//	this.tot = splitArray[splitArray.length - 1];
 			
 		}
-			if (str.contains("GET")) {
+			if (str.contains("WebServices")) {
 				for (int i = 0; i < splitArray.length; i++) {
 				// On affiche chaque élément du tableau
-				System.out.println("élement n° " + i + "=[" + splitArray[3] + "]");
-				this.total = splitArray[splitArray.length - 1];
-				 System.out.println(this.total);
+				System.out.println("élement n° " + i + "=[" + splitArray[5] + "]");
+				this.total=i;
+				System.out.println("-+-+-+-+-+-+-+-"+this.total);
+//				this.total = splitArray[splitArray.length - 1];
+//				 System.out.println(this.total);
 			}
 		
 		}
-		 this.totalOccurence = splitArray[splitArray.length - 1];
-		System.out.println("+-+-+-+-+-+-");
-		System.out.println(totalOccurence);
-		System.out.println("+-+-+-+-+-+-");
-//		System.out.println(total);
-
 		return splitArray;
 	}
 
