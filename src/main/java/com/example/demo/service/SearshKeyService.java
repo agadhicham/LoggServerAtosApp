@@ -44,22 +44,22 @@ public class SearshKeyService {
 		}
 		return getDate ;
 	}
-	@GetMapping("/occurence")
-	public Long getSearshByKeyToGetOccurence(String searshKey,String fileId) {
-		 DBFile dbFile = this.dbFileStorageService.getFile(fileId);
-		 String contentSearsh= new String(dbFile.getData());
-		 if (contentSearsh.contains(searshKey)) {
-			 try {
-				tomcatServerServiceTrining.tomcatFiltrageToGetOccurence(fileId, contentSearsh);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			 appacheServerServiceTrining.appacheFiltrageToGetOccurence(fileId);
-			 jbossServerServiceTrining.jbossFiltrageToGetOccurence(fileId);  
-		}
-		return occurence ;
-	}
+//	@GetMapping("/occurence")
+//	public Long getSearshByKeyToGetOccurence(String fileId) {
+//		 DBFile dbFile = this.dbFileStorageService.getFile(fileId);
+//		 String contentSearsh= new String(dbFile.getData());
+//		 if (contentSearsh.contains(searshKey)) {
+//			 try {
+//				tomcatServerServiceTrining.tomcatFiltrageToGetOccurence(fileId);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			 appacheServerServiceTrining.appacheFiltrageToGetOccurence(fileId);
+//			 jbossServerServiceTrining.jbossFiltrageToGetOccurence(fileId);  
+//		}
+//		return occurence ;
+//	}
 	
 	@GetMapping("/server")
 	public String getSearshByKeyToGetServer(String searshKey,String fileId) {

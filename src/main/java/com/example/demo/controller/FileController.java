@@ -128,7 +128,7 @@ public class FileController {
 
 	@GetMapping("/filesOfCat/{id}")
 	public List<DBFile> getFilesByCta(@PathVariable(value = "id") Long id) {
-		System.out.println(dBFileRepository.findByServerCategorieId(id));
+	//	System.out.println(dBFileRepository.findByServerCategorieId(id));
 		return this.dBFileRepository.findByServerCategorieId(id);
 	}
 
@@ -136,7 +136,7 @@ public class FileController {
 	public List<DBFile> getFilesByCtat(@PathParam(value = "id") String id) {
 		System.out.println("rrrrrrrrrr");
 
-		System.out.println("aaaaaaaaaaaa"+dBFileRepository.findByServerCategorieId(id).stream());
+	//	System.out.println("aaaaaaaaaaaa"+dBFileRepository.findByServerCategorieId(id).stream());
 		System.out.println("rrrrrrrrrr");
 		
 		

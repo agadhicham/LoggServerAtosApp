@@ -8,24 +8,28 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.interfece.ServreTomcatTrining;
 import com.example.demo.model.DBFile;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@CrossOrigin(origins = "*")
+@Slf4j
 public class TomcatServerServiceTrining implements ServreTomcatTrining {
 
 	@Autowired
 	private DBFileStorageService dBFileStorageService;
-    
+
 	private String serverName = "";
 	private Long occurenceOfKey = null;
 	private String totalOccurence = null;
 	private int total = 0;
-    private String wordSearshe="";
-	
-	
+	private String wordSearshe = "";
+
 	@Override
 	public String tomcatFiltrageToGetServer(String fieldId) {
 		DBFile dbFile = this.dBFileStorageService.getFile(fieldId);
@@ -79,57 +83,82 @@ public class TomcatServerServiceTrining implements ServreTomcatTrining {
 
 		String str = new String(dbFile.getData());
 		splitArray = str.split("WebServices");
-			for (int i = 0; i < splitArray.length; i++) {
-				//System.out.println("élement n° " + i + "=[" + splitArray[3] + "]");
-			//	this.tot = splitArray[splitArray.length - 1];
-			
+		for (int i = 0; i < splitArray.length; i++) {
+			// System.out.println("élement n° " + i + "=[" + splitArray[3] + "]");
+			// this.tot = splitArray[splitArray.length - 1];
+
 		}
-			if (str.contains("WebServices")) {
-				for (int i = 0; i < splitArray.length; i++) {
+		if (str.contains("WebServices")) {
+			for (int i = 0; i < splitArray.length; i++) {
 				// On affiche chaque élément du tableau
 				System.out.println("élement n° " + i + "=[" + splitArray[5] + "]");
-				this.total=i;
-				System.out.println("-+-+-+-+-+-+-+-"+this.total);
+				this.total = i;
+				System.out.println("-+-+-+-+-+-+-+-" + this.total);
 //				this.total = splitArray[splitArray.length - 1];
 //				 System.out.println(this.total);
 			}
-		
+
 		}
 		return splitArray;
 	}
 
 	@Override
-	public String tomcatFiltrageToGetOccurence(String fieldId, String motCle) throws IOException {
-	DBFile dbFile= this.dBFileStorageService.getFile(fieldId);
-	String contentInFile = new String(dbFile.getData());
-	
-	 String strArray[] = contentInFile.split("\\n");
-     int t=0;
-	 for (int i = 0; i < strArray.length; i++) {
-		//System.out.println(strArray[i]);
-		if (contentInFile.contains(motCle)) {
-			t=strArray.length;
+	public int tomcatFiltrageToGetOccurence(String fieldId) throws IOException {
+		DBFile dbFile = this.dBFileStorageService.getFile(fieldId);
+		new String(dbFile.getData());
+		String[] splitArray = null;
+		String[] splitArray1 = null;
+
+		String str = new String(dbFile.getData());
+		splitArray = str.split("impression/ajouter");
+		for (int i = 0; i < splitArray.length; i++) {
+			// System.out.println("élement n° " + i + "=[" + splitArray[3] + "]");
+			// this.tot = splitArray[splitArray.length - 1];
 		}
-	}
-	 System.err.println("total="+t);
-	 
-	if (contentInFile.contains(motCle))
-	{
-	 System.out.println("yeep i find it !!!!");
-	 System.err.println(strArray.length);
-	}
-	  int count =0;
-      //byte[] bytesArray = new byte[(int)contentInFile.length()];
-      //fis.read(bytesArray);
-      String s = new String(dbFile.getData());
-      String [] data = s.split(" ");
-      for (int i=0; i<data.length; i++) {
-         count++;
-      }
-      System.out.println("Number of characters in the given file are " +count);
-	//System.out.println(contentInFile);
-			return contentInFile;
+		if (str.contains("impression/ajouter")) {
+			splitArray1 = str.split(" ");
+			for (int i = 0; i < splitArray1.length; i++) {
+				System.out.println("*/*/*/*/*/*/*/*/*/*/*/*");
+				System.out.println("=[" + splitArray1[3] + "]");
+				System.out.println("*/*/*/*/*/*/*/*/*/*/*/*");
+				// this.tot = splitArray[splitArray.length - 1];
+			}
+		}
+		if (str.contains("impression/ajouter")) {
+			for (int i = 0; i < splitArray.length; i++) {
+				// On affiche chaque élément du tableau
+				// System.out.println("élement n° " + i + "=[" + splitArray[5] + "]");
+				this.total = i;
+				System.out.println("-+-+-+-+-+-+-+-" + this.total);
+//				this.total = splitArray[splitArray.length - 1];
+//				 System.out.println(this.total);
+			}
+		}
+		return this.total;
 
 	}
 
+	@Override
+	public String tomcatFiltrageToGetDateFormat(String fieldId) {
+		DBFile dbFile = this.dBFileStorageService.getFile(fieldId);
+		new String(dbFile.getData());
+		String[] splitArray = null;
+		String[] splitArray1 = null;
+		String str = new String(dbFile.getData());
+		splitArray1 = str.split(" ");
+		splitArray = str.split("impression/ajouter");
+		//if (str.contains("impression/ajouter")) {
+			splitArray1 = str.split(" ");
+			for (int i = 0; i < splitArray.length; i++) {
+				// On affiche chaque élément du tableau
+				System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+				System.out.println("element n° " + i);
+				System.out.println("date: " + splitArray1[3] + "]");
+				System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+				this.total = i;
+			}
+			    System.out.println("-+-+-+-+-+-+-+-" + this.total);
+	//	}
+		        return splitArray[3];
+	}
 }

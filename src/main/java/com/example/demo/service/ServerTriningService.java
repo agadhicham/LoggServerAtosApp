@@ -76,9 +76,9 @@ public class ServerTriningService implements ServreAppacheTrining, ServreJbossTr
 	}
 
 	@Override
-	public String tomcatFiltrageToGetOccurence(String fieldId, String motCle) {
+	public int tomcatFiltrageToGetOccurence(String fieldId) {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
 
 	@Override
@@ -101,6 +101,12 @@ public class ServerTriningService implements ServreAppacheTrining, ServreJbossTr
 
 	@Override
 	public String appacheFiltrageToGetEstimation(String fieldId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String tomcatFiltrageToGetDateFormat(String fieldId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
